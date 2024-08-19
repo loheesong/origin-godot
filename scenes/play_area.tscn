@@ -41,5 +41,8 @@ curve = SubResource("Curve2D_ffm85")
 position = Vector2(1150, 1)
 rotation = 1.56306
 
-[node name="Enemy" parent="." instance=ExtResource("2_m2deh")]
+[node name="Enemy" parent="." groups=["enemies"] instance=ExtResource("2_m2deh")]
 position = Vector2(-24, 72)
+
+[node name="Enemy2" parent="." groups=["enemies"] instance=ExtResource("2_m2deh")]
+position = Vector2(25, 73)
