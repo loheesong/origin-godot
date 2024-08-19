@@ -44,9 +44,6 @@ rotation = 1.56306
 
 [node name="Enemy" parent="." groups=["enemies"] instance=ExtResource("2_m2deh")]
 position = Vector2(-24, 72)
-
-[node name="Enemy2" parent="." groups=["enemies"] instance=ExtResource("2_m2deh")]
-position = Vector2(25, 73)
 grid_size = 16
 
 [connection signal="enemy_turn_started" from="." to="Enemy" method="_on_enemy_turn_started"]
