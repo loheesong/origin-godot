@@ -1,6 +1,9 @@
 extends Area2D
 
-@export var grid_size = 16
+@export var grid_size = 64
+
+var can_move
+signal player_moved(pos)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -18,7 +21,11 @@ func _unhandled_key_input(event: InputEvent) -> void:
 			move(action)
 			
 func move(action):
-	position += actions[action] * grid_size
+	if can_move:
+		position += actions[action] * grid_size
+		can_move = false
+		player_moved.emit(position)
+	
 
 func start(pos):
 	position = pos
@@ -28,3 +35,7 @@ func start(pos):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+
+func _turn_started() -> void:
+	can_move = true
