@@ -1,6 +1,9 @@
 extends Area2D
 
-@export var grid_size = 16
+@export var grid_size = 64
+
+var can_move
+signal player_moved(pos)
 
 # Define the RotationDirection enum
 enum RotationDirection {
@@ -32,7 +35,11 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		rotate_enemies(Global.RotationDirection.RIGHT)  # Rotate 90 degrees to the right
 
 func move(action):
-	position += actions[action] * grid_size
+	if can_move:
+		position += actions[action] * grid_size
+		can_move = false
+		player_moved.emit(position)
+	
 
 func start(pos):
 	position = pos
@@ -47,3 +54,6 @@ func _process(delta: float) -> void:
 func rotate_enemies(direction: Global.RotationDirection):
 	var play_area = get_parent()  # Assuming play_area.gd is the parent node
 	play_area.rotate_all_enemies(position, direction)  # Call the function in play_area.gd
+
+func _turn_started() -> void:
+	can_move = true
