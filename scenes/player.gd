@@ -4,7 +4,7 @@ extends Area2D
 
 var can_move
 signal player_moved(pos)
-signal attack
+signal attack(pos)
 
 # Define the RotationDirection enum
 enum RotationDirection {
@@ -43,7 +43,7 @@ func move(action):
 			position += actions[action] * grid_size
 			player_moved.emit(position)
 		if action.begins_with("Attack"):
-			attack.emit()
+			attack.emit(position)
 			pass
 	
 

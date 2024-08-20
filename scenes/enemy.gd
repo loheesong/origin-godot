@@ -15,6 +15,9 @@ func _process(delta: float) -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if area.name == "Player":
 		print("Collided lol")
+	if area.name == "Attack_area":
+		queue_free()
+	print(area.name)
 
 
 func _on_player_moved(pos: Vector2) -> void:

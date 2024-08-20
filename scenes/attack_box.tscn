@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvgci5ky4750k"]
+
+[ext_resource type="Script" path="res://scenes/attack_box.gd" id="1_gpit0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pxoev"]
+
+[node name="Attack_box" type="CharacterBody2D"]
+script = ExtResource("1_gpit0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_pxoev")
+debug_color = Color(0.990238, 0, 0.280814, 0.42)
+
+[node name="Attack_area" type="Area2D" parent="."]
+scale = Vector2(64, 64)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Attack_area"]
+shape = SubResource("RectangleShape2D_pxoev")
+debug_color = Color(0.990238, 0, 0.280814, 0.42)
+
+[connection signal="body_entered" from="Attack_area" to="." method="_on_area_2d_body_entered"]

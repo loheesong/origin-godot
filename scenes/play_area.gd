@@ -1,6 +1,8 @@
 extends Node
 
 @export var enemy_scene: PackedScene
+@export var attack_box_scene: PackedScene
+
 enum {PLAYER, ENEMY}
 
 var turn
@@ -63,9 +65,10 @@ func spawn_enemy() -> void:
 	add_child(enemy)
 	
 
-
-func _on_player_attack() -> void:
-	print("attack")
+func _on_player_attack(pos) -> void:
+	var attack_box = attack_box_scene.instantiate()
+	add_child(attack_box)
+	attack_box.position = pos
 	turn_end()
 	pass # Replace with function body.
 	
