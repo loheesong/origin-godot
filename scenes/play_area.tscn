@@ -35,6 +35,7 @@ grid_size = 16
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(4, 4)
+position_smoothing_enabled = true
 
 [node name="MobPath" type="Path2D" parent="."]
 visible = false
