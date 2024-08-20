@@ -32,6 +32,7 @@ func _on_player_moved(_pos) -> void:
 		spawnConter = spawnRate
 	else:
 		spawnConter -= 1
+
 	
 # Function to rotate all enemies around the player's position
 func rotate_all_enemies(player_position: Vector2, direction: Global.RotationDirection):
@@ -52,6 +53,15 @@ func rotate_enemy_around_player(enemy: Node2D, player_position: Vector2, directi
 	
 	enemy.position = new_position + player_position
 
+func transform_all_enemies(transform: Transform2D):
+	var enemies = get_tree().get_nodes_in_group("enemies")  # Assuming your enemies are in a group called "enemies"
+	for enemy in enemies:
+		transform_enemy_around_player(enemy, transform)
+		
+# Rotate a single enemy
+func transform_enemy_around_player(enemy: Node2D, transform: Transform2D):
+	enemy.position = transform.origin + round(enemy.position * transform / 16)*16
+
 #spawn enemy
 func spawn_enemy() -> void:
 	var enemy = enemy_scene.instantiate()
@@ -67,5 +77,6 @@ func spawn_enemy() -> void:
 	enemy.position = Vector2(random_x-0.5, random_y) * 16
 	enemy_turn_started.connect(enemy._on_enemy_turn_started)
 	$Player.player_moved.connect(enemy._on_player_moved)
+	enemy.add_to_group("enemies")
 	add_child(enemy)
 	

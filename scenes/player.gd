@@ -26,13 +26,15 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		# handle player movement 
 		if event.is_action_pressed(action):
 			move(action)
-
-	# Handle rotation with spacebar 
-	if event.pressed and event.keycode == KEY_N:
-		rotate_enemies(Global.RotationDirection.LEFT)  # Rotate 90 degrees to the right
-		
-	if event.pressed and event.keycode == KEY_M:
-		rotate_enemies(Global.RotationDirection.RIGHT)  # Rotate 90 degrees to the right
+			
+	if event.pressed:
+		match event.keycode:
+			KEY_N: transform_enemies(Transform2D(-PI/4, position)) #Rotate 45 degrees left
+			KEY_M: transform_enemies(Transform2D(PI/4, position)) #Rotate 45 degrees right
+			KEY_J: transform_enemies(Transform2D(0, Vector2(0.5, 0.5), 0, position)) #Scale down
+			KEY_K: transform_enemies(Transform2D(0, Vector2(1.5, 1.5), 0, position)) #Scale up
+			KEY_U: transform_enemies(Transform2D(0, Vector2.ONE, 1, position)) #Skew
+			KEY_I: transform_enemies(Transform2D(0, Vector2.ONE, -1, position)) #Skew opposite (u can add more idk)
 
 func move(action):
 	if can_move:
@@ -53,7 +55,11 @@ func _process(delta: float) -> void:
 # Function to rotate enemies
 func rotate_enemies(direction: Global.RotationDirection):
 	var play_area = get_parent()  # Assuming play_area.gd is the parent node
-	play_area.rotate_all_enemies(position, direction)  # Call the function in play_area.gd
+	play_area.rotate_all_enemies(direction)  # Call the function in play_area.gd
+
+func transform_enemies(transform: Transform2D):
+	var play_area = get_parent()  # Assuming play_area.gd is the parent node
+	play_area.transform_all_enemies(transform)  # Call the function in play_area.gd
 
 func _turn_started() -> void:
 	can_move = true

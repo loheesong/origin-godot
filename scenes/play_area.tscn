@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://c3v1tkqhnxn3a"]
+[gd_scene load_steps=10 format=3 uid="uid://c3v1tkqhnxn3a"]
 
 [ext_resource type="PackedScene" uid="uid://bvp0x4dog7chs" path="res://scenes/player.tscn" id="1_qtq1p"]
 [ext_resource type="Script" path="res://scenes/play_area.gd" id="1_rntl5"]
 [ext_resource type="PackedScene" uid="uid://c6s3qvkcx3ix6" path="res://scenes/enemy.tscn" id="2_m2deh"]
+[ext_resource type="Script" path="res://scenes/camera_2d.gd" id="3_fhs8i"]
 [ext_resource type="Script" path="res://scenes/tile_map.gd" id="4_h32vn"]
 [ext_resource type="Texture2D" uid="uid://dydscl70gd4ki" path="res://assets/tile.png" id="4_wm16j"]
 
@@ -35,6 +36,8 @@ grid_size = 16
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(4, 4)
+position_smoothing_enabled = true
+script = ExtResource("3_fhs8i")
 
 [node name="MobPath" type="Path2D" parent="."]
 visible = false
