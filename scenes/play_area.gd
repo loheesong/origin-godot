@@ -16,10 +16,6 @@ func _ready() -> void:
 	var turn = PLAYER
 	
 	var enemy = enemy_scene.instantiate()
-	var path = $MobPath/MobSpawnLocation
-	path.progress_ratio = randf()
-	enemy.position = path.position
-	add_child(enemy)
 	
 	player_turn_started.emit()
 
@@ -59,7 +55,6 @@ func rotate_enemy_around_player(enemy: Node2D, player_position: Vector2, directi
 #spawn enemy
 func spawn_enemy() -> void:
 	var enemy = enemy_scene.instantiate()
-	add_child(enemy)
 	var rng := RandomNumberGenerator.new()
 	var widthStart = $TileMap.size.position[0]
 	var widthEnd = widthStart + $TileMap.size.size[0]
@@ -70,4 +65,7 @@ func spawn_enemy() -> void:
 	else:
 		random_y = $TileMap.size.end[1]
 	enemy.position = Vector2(random_x, random_y) * 16
+	enemy_turn_started.connect(enemy._on_enemy_turn_started)
+	$Player.player_moved.connect(enemy._on_player_moved)
+	add_child(enemy)
 	

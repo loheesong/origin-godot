@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var grid_size = 64
+@export var grid_size = 16
 var dest: Vector2
 
 # Called when the node enters the scene tree for the first time.
