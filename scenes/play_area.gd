@@ -61,10 +61,10 @@ func spawn_enemy() -> void:
 	var random_x = rng.randi_range(widthStart, widthEnd)
 	var random_y = rng.randi_range(0, 1)
 	if random_y == 0:
-		random_y = $TileMap.size.position[1]
+		random_y = $TileMap.size.position[1]+0.5
 	else:
-		random_y = $TileMap.size.end[1]
-	enemy.position = Vector2(random_x, random_y) * 16
+		random_y = $TileMap.size.end[1]-0.5
+	enemy.position = Vector2(random_x-0.5, random_y) * 16
 	enemy_turn_started.connect(enemy._on_enemy_turn_started)
 	$Player.player_moved.connect(enemy._on_player_moved)
 	add_child(enemy)
