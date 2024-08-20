@@ -21,6 +21,7 @@ const actions = {
 	"move_up": Vector2.UP,
 	"move_down": Vector2.DOWN
 }
+
 func _unhandled_key_input(event: InputEvent) -> void:
 	for action in actions:
 		# handle player movement 
@@ -51,11 +52,6 @@ func start(pos):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
-# Function to rotate enemies
-func rotate_enemies(direction: Global.RotationDirection):
-	var play_area = get_parent()  # Assuming play_area.gd is the parent node
-	play_area.rotate_all_enemies(direction)  # Call the function in play_area.gd
 
 func transform_enemies(transform: Transform2D):
 	var play_area = get_parent()  # Assuming play_area.gd is the parent node
