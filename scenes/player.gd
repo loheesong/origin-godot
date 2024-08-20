@@ -4,6 +4,7 @@ extends Area2D
 
 var can_move
 signal player_moved(pos)
+signal attack
 
 # Define the RotationDirection enum
 enum RotationDirection {
@@ -19,7 +20,8 @@ const actions = {
 	"move_left": Vector2.LEFT,
 	"move_right": Vector2.RIGHT,
 	"move_up": Vector2.UP,
-	"move_down": Vector2.DOWN
+	"move_down": Vector2.DOWN,
+	"Attack_1": 0
 }
 func _unhandled_key_input(event: InputEvent) -> void:
 	for action in actions:
@@ -36,9 +38,13 @@ func _unhandled_key_input(event: InputEvent) -> void:
 
 func move(action):
 	if can_move:
-		position += actions[action] * grid_size
 		can_move = false
-		player_moved.emit(position)
+		if action.begins_with("move"):
+			position += actions[action] * grid_size
+			player_moved.emit(position)
+		if action.begins_with("Attack"):
+			attack.emit()
+			pass
 	
 
 func start(pos):

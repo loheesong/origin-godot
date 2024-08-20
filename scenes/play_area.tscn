@@ -46,4 +46,5 @@ position = Vector2(1150, 1)
 rotation = 1.56306
 
 [connection signal="player_turn_started" from="." to="Player" method="_turn_started"]
+[connection signal="attack" from="Player" to="." method="_on_player_attack"]
 [connection signal="player_moved" from="Player" to="." method="_on_player_moved"]

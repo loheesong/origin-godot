@@ -24,14 +24,7 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_player_moved(_pos) -> void:
-	await get_tree().create_timer(0.5).timeout
-	enemy_turn_started.emit()
-	player_turn_started.emit()
-	if spawnConter == 0:
-		spawn_enemy()
-		spawnConter = spawnRate
-	else:
-		spawnConter -= 1
+	turn_end()
 	
 # Function to rotate all enemies around the player's position
 func rotate_all_enemies(player_position: Vector2, direction: Global.RotationDirection):
@@ -69,3 +62,19 @@ func spawn_enemy() -> void:
 	$Player.player_moved.connect(enemy._on_player_moved)
 	add_child(enemy)
 	
+
+
+func _on_player_attack() -> void:
+	print("attack")
+	turn_end()
+	pass # Replace with function body.
+	
+func turn_end() -> void:
+	await get_tree().create_timer(0.5).timeout
+	enemy_turn_started.emit()
+	player_turn_started.emit()
+	if spawnConter == 0:
+		spawn_enemy()
+		spawnConter = spawnRate
+	else:
+		spawnConter -= 1
